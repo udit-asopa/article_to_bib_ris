@@ -1,0 +1,91 @@
+TY  - JOUR
+AU  - Lehmann, Moritz K.
+AU  - Gurlin, Daniela
+AU  - Pahlevan, Nima
+AU  - Alikas, Krista
+AU  - Conroy, Ted
+AU  - Anstee, Janet
+AU  - Balasubramanian, Sundarabalan V.
+AU  - Barbosa, Cláudio C. F.
+AU  - Binding, Caren
+AU  - Bracher, Astrid
+AU  - Bresciani, Mariano
+AU  - Burtner, Ashley
+AU  - Cao, Zhigang
+AU  - Dekker, Arnold G.
+AU  - Di Vittorio, Courtney
+AU  - Drayson, Nathan
+AU  - Errera, Reagan M.
+AU  - Fernandez, Virginia
+AU  - Ficek, Dariusz
+AU  - Fichot, Cédric G.
+AU  - Gege, Peter
+AU  - Giardino, Claudia
+AU  - Gitelson, Anatoly A.
+AU  - Greb, Steven R.
+AU  - Henderson, Hayden
+AU  - Higa, Hiroto
+AU  - Rahaghi, Abolfazl Irani
+AU  - Jamet, Cédric
+AU  - Jiang, Dalin
+AU  - Jordan, Thomas
+AU  - Kangro, Kersti
+AU  - Kravitz, Jeremy A.
+AU  - Kristoffersen, Arne S.
+AU  - Kudela, Raphael
+AU  - Li, Lin
+AU  - Ligi, Martin
+AU  - Loisel, Hubert
+AU  - Lohrenz, Steven
+AU  - Ma, Ronghua
+AU  - Maciel, Daniel A.
+AU  - Malthus, Tim J.
+AU  - Matsushita, Bunkei
+AU  - Matthews, Mark
+AU  - Minaudo, Camille
+AU  - Mishra, Deepak R.
+AU  - Mishra, Sachidananda
+AU  - Moore, Tim
+AU  - Moses, Wesley J.
+AU  - Nguyễn, Hà
+AU  - Novo, Evlyn M. L. M.
+AU  - Novoa, Stéfani
+AU  - Odermatt, Daniel
+AU  - O’Donnell, David M.
+AU  - Olmanson, Leif G.
+AU  - Ondrusek, Michael
+AU  - Oppelt, Natascha
+AU  - Ouillon, Sylvain
+AU  - Pereira Filho, Waterloo
+AU  - Plattner, Stefan
+AU  - Verdú, Antonio Ruiz
+AU  - Salem, Salem I.
+AU  - Schalles, John F.
+AU  - Simis, Stefan G. H.
+AU  - Siswanto, Eko
+AU  - Smith, Brandon
+AU  - Somlai-Schweiger, Ian
+AU  - Soppa, Mariana A.
+AU  - Spyrakos, Evangelos
+AU  - Tessin, Elinor
+AU  - van der Woerd, Hendrik J.
+AU  - Vander Woude, Andrea
+AU  - Vandermeulen, Ryan A.
+AU  - Vantrepotte, Vincent
+AU  - Wernand, Marcel R.
+AU  - Werther, Mortimer
+AU  - Young, Kyana
+AU  - Yue, Linwei
+PY  - 2023
+DA  - 2023/02/16
+TI  - GLORIA - A globally representative hyperspectral in situ dataset for optical sensing of water quality
+JO  - Scientific Data
+SP  - 100
+VL  - 10
+IS  - 1
+AB  - The development of algorithms for remote sensing of water quality (RSWQ) requires a large amount of in situ data to account for the bio-geo-optical diversity of inland and coastal waters. The GLObal Reflectance community dataset for Imaging and optical sensing of Aquatic environments (GLORIA) includes 7,572 curated hyperspectral remote sensing reflectance measurements at 1 nm intervals within the 350 to 900 nm wavelength range. In addition, at least one co-located water quality measurement of chlorophyll a, total suspended solids, absorption by dissolved substances, and Secchi depth, is provided. The data were contributed by researchers affiliated with 59 institutions worldwide and come from 450 different water bodies, making GLORIA the de-facto state of knowledge of in situ coastal and inland aquatic optical diversity. Each measurement is documented with comprehensive methodological details, allowing users to evaluate fitness-for-purpose, and providing a reference for practitioners planning similar measurements. We provide open and free access to this dataset with the goal of enabling scientific and technological advancement towards operational regional and global RSWQ monitoring.
+SN  - 2052-4463
+UR  - https://doi.org/10.1038/s41597-023-01973-y
+DO  - 10.1038/s41597-023-01973-y
+ID  - Lehmann2023
+ER  -

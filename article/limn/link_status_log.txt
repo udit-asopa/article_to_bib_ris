@@ -1,0 +1,63 @@
+# Link Status Log -- 59
+# OK -- 57
+# BAD -- 2
+
+[OK] reachable (200) -> https://orcid.org/0000-0002-2668-5808
+[OK] reachable (200) -> http://creativecommons.org/licenses/by/4.0/ --> https://creativecommons.org/licenses/by/4.0/
+[OK] reachable (200) -> http://crossmark.crossref.org/dialog/?doi=10.1002%2Flno.12606&domain=pdf&date_stamp=2024-06-24 --> https://crossmark.crossref.org:443/dialog/?doi=10.1002%2Flno.12606&domain=pdf&date_stamp=2024-06-24
+[BAD] http 403 -> https://aslopubs.onlinelibrary.wiley.com/doi/10.1002/lno.12606
+[BAD] http 403 -> https://onlinelibrary.wiley.com/terms-and-conditions
+[OK] reachable (200) -> https://github.com/bishun945/IOPmodel
+[OK] reachable (200) -> https://zenodo.org/records/7567534
+[OK] reachable (200) -> https://github.com/bishun945/pyOWT
+[OK] reachable (200) -> https://doi.org/10.5670/oceanog.2004.42 --> https://tos.org/oceanography/article/the-evolution-of-optical-water-massclassification
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1080/15481603.2019.1587890
+[OK] reachable (200) -> https://doi.org/10.1364/OE.27.034838 --> https://validate.perfdrive.com/?ssa=dfaf6b8d-6d6d-e093-dafc-301a96a9386f&ssb=72719201684&ssc=https%3A%2F%2Fopg.optica.org&ssi=ae1e134c-d3hy-339e-9837-3d86e4aa54ae&ssk=botmanager_support@radware.com&ssm=34822239381473473107718657977038&ssn=730572646d353064ff3d9a584a9ea5bf368525d37f12-5516-32b5-286e7f&sso=ff627b5-2542-c1a28ef1dedb18576ca6bf9922ac55cbd840b8cd219863d1&ssp=01546949091772120827177217288090554&ssq=61452759788454124836797884567955245458902&ssr=ODcuOTIuMTQwLjQ1&sst=Mozilla%2F5.0%20%28URL-Checker%29&ssv=&ssw=
+[OK] reachable (200) -> https://doi.org/10.1109/TGRS.2021.3058556 --> https://ieeexplore.ieee.org/document/9361570/
+[OK] reachable (200) -> https://doi.org/10.3389/fmars.2023.1196352 --> https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2023.1196352/full
+[OK] reachable (200) -> https://doi.org/10.1364/OE.482395 --> https://validate.perfdrive.com/?ssa=52a7c001-dd5e-eb9f-d169-23e186e4e249&ssb=23463297406&ssc=https%3A%2F%2Fopg.optica.org&ssi=29ef0edb-d3hy-f984-ab7e-994053f2f1f7&ssk=botmanager_support@radware.com&ssm=33240132300591776109324869498150&ssn=c4e8da56d290d03a0fab729e40c92386e59b0f8f17b6-7585-17fc-634000&sso=ba081fc-6381-98be4e452bcba609ecec5531012a2fb7f2002dce5b7a19d9&ssp=63811939461772126645177218468708395&ssq=84241129788479301795597884213674352072377&ssr=ODcuOTIuMTQwLjQ1&sst=Mozilla%2F5.0%20%28URL-Checker%29&ssv=&ssw=
+[OK] reachable (200) -> https://doi.org/10.1016/j.pocean.2013.12.008 --> https://linkinghub.elsevier.com/retrieve/pii/S0079661114000020
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.3390/rs12183018
+[OK] reachable (200) -> https://doi.org/10.1016/j.csda.2007.02.009 --> https://linkinghub.elsevier.com/retrieve/pii/S0167947307000692
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1002/lol2.10319
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1029/95JC00458
+[OK] reachable (200) -> https://doi.org/10.5194/essd-12-1123-2020 --> https://essd.copernicus.org/articles/12/1123/2020/
+[OK] reachable (200) -> https://doi.org/10.5194/essd-14-2697-2022 --> https://essd.copernicus.org/articles/14/2697/2022/
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2021.112607 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425721003278
+[OK] reachable (200) -> https://doi.org/10.1109/TGRS.2003.818020 --> https://ieeexplore.ieee.org/document/1260621/
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2015.01.027 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425715000450
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.3390/rs9050420
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2005.08.015 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425705002816
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2022.113045 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425722001596
+[OK] reachable (200) -> https://doi.org/10.3389/fmars.2017.00140 --> https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2017.00140/full
+[OK] reachable (200) -> https://doi.org/10.3389/fmars.2023.1129876 --> https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2023.1129876/full
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2017.03.036 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425717301396
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.3390/rs13194018
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1093/plankt/fbae010
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.3390/rs8060497
+[OK] reachable (200) -> https://doi.org/10.5194/essd-14-4935-2022 --> https://essd.copernicus.org/articles/14/4935/2022/
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2005.11.008 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425705003950
+[OK] reachable (200) -> https://doi.org/10.1364/AO.50.003155 --> https://validate.perfdrive.com/?ssa=fef4633c-530c-626a-9fd8-85d29b34bf6c&ssb=41740238378&ssc=https%3A%2F%2Fopg.optica.org&ssi=298a7866-d3hy-cd20-0d62-3287913b0937&ssk=botmanager_support@radware.com&ssm=64923584618984262100510127641600&ssn=8648d6d3ac446cd9f2aad339345405280e20fd38fdec-ae49-60e1-886eb5&sso=99f61e1-8b41-4f9d15d39f08eff4c8a0ed0e101aa7bcc9c65b83076da72c&ssp=76069083421772103958177211415418153&ssq=92020009788573863619097885220923349059132&ssr=ODcuOTIuMTQwLjQ1&sst=Mozilla%2F5.0%20%28URL-Checker%29&ssv=&ssw=
+[OK] reachable (200) -> https://doi.org/10.1038/s41597-023-01973-y --> https://www.nature.com/articles/s41597-023-01973-y?error=cookies_not_supported&code=de4143c9-52f4-4498-b3d7-7e9e22ff6a49
+[OK] reachable (200) -> https://doi.org/10.1109/TGRS.2021.3136243 --> https://ieeexplore.ieee.org/document/9654183/
+[OK] reachable (200) -> https://doi.org/10.3389/fmars.2023.1031901 --> https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2023.1031901/full
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1029/2001JC001172
+[OK] reachable (200) -> https://doi.org/10.5670/oceanog.2004.48 --> https://tos.org/oceanography/article/optical-modeling-of-ocean-waters-is-the-case-1-case-2-classification-still-
+[OK] reachable (200) -> https://doi.org/10.1016/j.jmarsys.2015.03.005 --> https://linkinghub.elsevier.com/retrieve/pii/S0924796315000457
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2009.07.016 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425709002156
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2011.10.001 --> https://linkinghub.elsevier.com/retrieve/pii/S003442571100349X
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.4319/lo.1977.22.4.0709
+[OK] reachable (200) -> https://doi.org/10.5194/bg-4-913-2007 --> https://bg.copernicus.org/articles/4/913/2007/
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2019.04.027 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425719301786
+[OK] reachable (200) -> https://doi.org/10.3389/fmars.2018.00146 --> https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2018.00146/full
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2019.111604 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425719306248
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2020.111659 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425720300286
+[OK] reachable (200) -> https://doi.org/10.1007/s10661-006-9538-5 --> https://link.springer.com/article/10.1007/s10661-006-9538-5?error=cookies_not_supported&code=a79aebdc-9aad-48b7-af1e-1b587a8aa127
+[OK] reachable (200) -> https://doi.org/10.1364/AO.54.005392 --> https://validate.perfdrive.com/?ssa=fa73c03d-aaeb-e703-deff-5422d4ab2281&ssb=31744265269&ssc=https%3A%2F%2Fopg.optica.org&ssi=8ddfc4b1-d3hy-1cc3-4873-addbbbf09846&ssk=botmanager_support@radware.com&ssm=60903936839605985102569876445261&ssn=1af10e8997fc3c2c89a097276d7d64694d45e8a0fee3-04a9-0996-910e7c&sso=ff34296-9762-eea6cfdeaf2c1b0f2191c3a638225c37f129e54f2afb35fa&ssp=74573853991772159575177214212203331&ssq=26753949788594434984197885556202634830361&ssr=ODcuOTIuMTQwLjQ1&sst=Mozilla%2F5.0%20%28URL-Checker%29&ssv=&ssw=
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1002/lno.10674
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2011.05.014 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425711001970
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2015.09.027 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425715301504
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2020.111900 --> https://linkinghub.elsevier.com/retrieve/pii/S0034425720302704
+[OK] likely valid DOI (http 403, access restricted) -> https://doi.org/10.1002/2016JC012126
+[OK] reachable (200) -> https://doi.org/10.1016/j.rse.2022.113233 --> https://linkinghub.elsevier.com/retrieve/pii/S003442572200339X
+[OK] reachable (200) -> https://doi.org/10.1016/j.pocean.2017.08.007 --> https://linkinghub.elsevier.com/retrieve/pii/S0079661116302592
