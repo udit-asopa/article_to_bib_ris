@@ -1,98 +1,122 @@
-# EPUB Reader for Windows (Python)
+# PDF URL Parser
 
-A lightweight desktop EPUB reader built with `PySide6`.
+Extract URLs from PDF files, validate them, and export references (`.ris` / `.bib`) from DOI-linked sources.
 
-## Features
+## What it does
 
-- Open `.epub` files from a native file picker
-- Chapter list on the left
-- Reading pane on the right
-- Previous/Next chapter navigation
+- Extracts URLs from PDF text content.
+- Extracts embedded PDF hyperlink annotations.
+- Reconstructs wrapped/broken links (including split DOI links).
+- Validates links with status output and optional redirect display.
+- Exports references into a PDF-stem folder (`.ris` first, `.bib` fallback).
 
 ## Setup
 
-1. Create/activate a Python environment (recommended Python 3.10+).
-2. Install dependencies:
+### Preferred (pixi)
 
-	```powershell
-	pip install -r requirements.txt
-	```
-
-## Run
-
-```powershell
-python epub_reader.py
+```bash
+pixi install
 ```
 
-## Extract URLs from a PDF
+### Optional (plain pip)
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf
+```bash
+pip install -r requirements.txt
 ```
 
-Save to a text file (one URL per line):
+## Basic usage
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf -o urls.txt
+```bash
+pixi run python main.py path/to/file.pdf
 ```
 
-Validate extracted URLs (format + reachability):
+## Development checks
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --check
+Format code:
+
+```bash
+pixi run format
 ```
 
-Set custom timeout per URL check:
+Run lint/type checks:
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --check --timeout 12
+```bash
+pixi run lint
 ```
 
-Speed up checks with parallel workers:
+Without pixi:
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --check --workers 40
+```bash
+python main.py path/to/file.pdf
 ```
 
-Show only valid URLs:
+## Common flags
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --check --status ok
+- `-o, --output <file>`: save extracted URLs (one per line)
+- `--check`: validate extracted URLs
+- `--timeout <seconds>`: per-request timeout (default: `8.0`)
+- `--workers <n>`: parallel workers for validation (default: `20`)
+- `--status ok|bad`: show only OK or BAD validation lines
+- `--report-output [file]`: save report (`Retrieved/Valid/Invalid` sections)
+- `--export`: export references to `<pdf_stem>/`
+
+## Examples
+
+Extract + print:
+
+```bash
+pixi run python main.py REVIEW.pdf
 ```
 
-Show only failed URLs:
+Extract + save URLs:
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --check --status bad
+```bash
+pixi run python main.py REVIEW.pdf -o urls.txt
 ```
 
-Save a text report with 3 sections: Retrieved URLs, Valid URLs, Invalid URLs:
+Validate with filtering:
 
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --report-output url_report.txt
+```bash
+pixi run python main.py REVIEW.pdf --check --status bad
 ```
 
-`--report-output` can be used without a filename; it defaults to `<pdf_stem>.txt`.
+Save report with custom filename:
 
-Export BibTeX for valid DOI URLs:
-
-```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --export
+```bash
+pixi run python main.py REVIEW.pdf --check --report-output review_report.txt
 ```
 
-This creates a folder named after the PDF file (for example `paper.pdf` -> `paper/`).
-For each valid DOI URL, it first tries to download a `.ris` file from Springer citation-needed; if not available, it falls back to `.bib`.
+Save report with default filename (`<pdf_stem>.txt`):
 
-Note: DOI links split across line breaks in PDFs (for example `.../0034` on one line and `4257...` on the next) are automatically reconstructed.
-The extractor also reads embedded PDF hyperlinks (clickable links in annotations), not only visible text.
-
-Use **File → Open EPUB** or `Ctrl+O` to load a book.
-
-## Build as Windows .exe (optional)
-
-```powershell
-pip install pyinstaller
-pyinstaller --noconfirm --windowed --name EPUBReader epub_reader.py
+```bash
+pixi run python main.py REVIEW.pdf --check --report-output
 ```
 
-The executable will be generated under `dist/EPUBReader/`.
+Export references:
+
+```bash
+pixi run python main.py REVIEW.pdf --check --export
+```
+
+Full flow:
+
+```bash
+pixi run python main.py REVIEW.pdf --check --report-output --export
+```
+
+## Export behavior
+
+When `--export` is used, a folder named after the PDF stem is created (example: `REVIEW.pdf` -> `REVIEW/`).
+
+Inside that folder:
+
+- `.ris` files for DOI references where RIS is available
+- `.bib` files for remaining DOI references (fallback)
+- `link_status_log.txt` with validation summary/details
+- report file (if `--report-output` is used)
+
+## Notes
+
+- Some URLs may return `403` to scripts but still be valid in browsers; those are treated as likely valid for known access-restricted patterns.
+- Redirected links are shown in console output when detected.
+- DOI links split across line breaks are reconstructed automatically.
