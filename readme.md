@@ -72,10 +72,12 @@ Save a text report with 3 sections: Retrieved URLs, Valid URLs, Invalid URLs:
 python extract_pdf_urls.py path\to\your_file.pdf --report-output url_report.txt
 ```
 
+`--report-output` can be used without a filename; it defaults to `<pdf_stem>.txt`.
+
 Export BibTeX for valid DOI URLs:
 
 ```powershell
-python extract_pdf_urls.py path\to\your_file.pdf --export bib
+python extract_pdf_urls.py path\to\your_file.pdf --export
 ```
 
 This creates a folder named after the PDF file (for example `paper.pdf` -> `paper/`).
