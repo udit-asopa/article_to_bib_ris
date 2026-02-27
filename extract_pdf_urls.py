@@ -4,13 +4,13 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 from pypdf import PdfReader
 
 
-DOI_PREFIX_PATTERN = re.compile(r"https?://(?:dx\.)?doi\.org/", re.IGNORECASE)
+DOI_PREFIX_PATTERN = re.compile(r"https?://(?:dx\.)?doi\s*\.\s*org/", re.IGNORECASE)
 HTTP_PREFIX_PATTERN = re.compile(r"https?://", re.IGNORECASE)
 
 
@@ -31,6 +31,9 @@ def should_continue_after_whitespace(previous_char: str, next_char: str) -> bool
         return False
 
     if previous_char in {"/", "-"}:
+        return next_char.isalnum()
+
+    if previous_char == "_":
         return next_char.isalnum()
 
     if previous_char == ".":
@@ -127,11 +130,45 @@ def extract_generic_urls_from_text(text: str) -> list[str]:
     return generic_urls
 
 
+def extract_urls_from_page_annotations(page) -> list[str]:
+    annotation_urls: list[str] = []
+
+    annotations = page.get("/Annots")
+    if not annotations:
+        return annotation_urls
+
+    for annotation_ref in annotations:
+        try:
+            annotation = annotation_ref.get_object()
+        except Exception:
+            continue
+
+        if annotation.get("/Subtype") != "/Link":
+            continue
+
+        action = annotation.get("/A")
+        if not action:
+            continue
+
+        uri_value = action.get("/URI")
+        if not uri_value:
+            continue
+
+        candidate = clean_url(str(uri_value))
+        if candidate.lower().startswith(("http://", "https://")):
+            annotation_urls.append(candidate)
+
+    return annotation_urls
+
+
 def extract_urls_from_pdf(pdf_path: Path) -> list[str]:
     reader = PdfReader(str(pdf_path))
     urls: list[str] = []
 
     for page in reader.pages:
+        annotation_urls = extract_urls_from_page_annotations(page)
+        urls.extend(annotation_urls)
+
         text = page.extract_text() or ""
         doi_urls = extract_doi_urls_from_text(text)
         urls.extend(doi_urls)
@@ -247,17 +284,108 @@ def write_url_report(report_path: Path, urls: list[str], check_results: list[Url
     invalid_urls = [result.url for result in check_results if not result.is_valid]
 
     lines: list[str] = []
-    lines.append("# Retrieved URLs")
+    lines.append(f"# Retrieved URLs -- {len(urls)}")
     lines.extend(urls)
     lines.append("")
-    lines.append("# Valid URLs")
+    lines.append(f"# Valid URLs -- {len(valid_urls)}")
     lines.extend(valid_urls)
     lines.append("")
-    lines.append("# Invalid URLs")
+    lines.append(f"# Invalid URLs -- {len(invalid_urls)}")
     lines.extend(invalid_urls)
     lines.append("")
 
     report_path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def is_doi_url(url: str) -> bool:
+    return urlparse(url).netloc.lower() in {"doi.org", "dx.doi.org"}
+
+
+def sanitize_filename(value: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", value).strip("._") or "doi"
+
+
+def fetch_bibtex_for_doi_url(doi_url: str, timeout_seconds: float) -> tuple[bool, str]:
+    headers = {
+        "User-Agent": "Mozilla/5.0 (BibTeX-Exporter)",
+        "Accept": "application/x-bibtex; charset=utf-8",
+    }
+
+    try:
+        request = Request(doi_url, headers=headers, method="GET")
+        with urlopen(request, timeout=timeout_seconds) as response:
+            payload = response.read()
+            bibtex_text = payload.decode("utf-8", errors="replace").strip()
+            if not bibtex_text:
+                return False, "empty bibtex response"
+            return True, bibtex_text
+    except HTTPError as error:
+        return False, f"http {error.code}"
+    except URLError as error:
+        return False, f"network error: {error.reason}"
+    except Exception as error:
+        return False, f"error: {error}"
+
+
+def fetch_ris_for_doi_identifier(doi_identifier: str, timeout_seconds: float) -> tuple[bool, str]:
+    encoded_doi = quote(doi_identifier, safe="/")
+    ris_url = (
+        f"https://citation-needed.springer.com/v2/references/{encoded_doi}"
+        "?format=refman&flavour=citation"
+    )
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (RIS-Exporter)",
+        "Accept": "application/x-research-info-systems, text/plain, */*",
+    }
+
+    try:
+        request = Request(ris_url, headers=headers, method="GET")
+        with urlopen(request, timeout=timeout_seconds) as response:
+            payload = response.read().decode("utf-8", errors="replace").strip()
+            if not payload:
+                return False, "empty ris response"
+            if "TY  -" not in payload:
+                return False, "unexpected ris payload"
+            return True, payload
+    except HTTPError as error:
+        return False, f"http {error.code}"
+    except URLError as error:
+        return False, f"network error: {error.reason}"
+    except Exception as error:
+        return False, f"error: {error}"
+
+
+def export_reference_files(pdf_path: Path, doi_urls: list[str], timeout_seconds: float) -> tuple[int, int, int, Path]:
+    output_folder = pdf_path.parent / pdf_path.stem
+    output_folder.mkdir(parents=True, exist_ok=True)
+
+    ris_exported_count = 0
+    bib_exported_count = 0
+    failed_count = 0
+
+    for index, doi_url in enumerate(doi_urls, start=1):
+        doi_suffix = urlparse(doi_url).path.lstrip("/") or f"doi_{index}"
+        base_name = f"{index:03d}_{sanitize_filename(doi_suffix)}"
+
+        ris_success, ris_payload = fetch_ris_for_doi_identifier(doi_suffix, timeout_seconds=timeout_seconds)
+        if ris_success:
+            ris_path = output_folder / f"{base_name}.ris"
+            ris_path.write_text(ris_payload + "\n", encoding="utf-8")
+            ris_exported_count += 1
+            continue
+
+        bib_success, bib_payload = fetch_bibtex_for_doi_url(doi_url, timeout_seconds=timeout_seconds)
+        if bib_success:
+            bib_path = output_folder / f"{base_name}.bib"
+            bib_path.write_text(bib_payload + "\n", encoding="utf-8")
+            bib_exported_count += 1
+        else:
+            failed_count += 1
+            print(f"[RIS FAIL] {ris_payload} -> {doi_url}")
+            print(f"[BIB FAIL] {bib_payload} -> {doi_url}")
+
+    return ris_exported_count, bib_exported_count, failed_count, output_folder
 
 
 def main() -> None:
@@ -296,6 +424,11 @@ def main() -> None:
         type=Path,
         help="Save a text report with retrieved URLs plus valid/invalid sections",
     )
+    parser.add_argument(
+        "--export",
+        choices=["bib"],
+        help="Export references for valid DOI URLs (RIS when available, else BibTeX)",
+    )
     args = parser.parse_args()
 
     if not args.pdf.exists():
@@ -311,7 +444,7 @@ def main() -> None:
             print(url)
         print(f"\nTotal URLs found: {len(urls)}")
 
-    should_check = args.check or args.report_output is not None
+    should_check = args.check or args.report_output is not None or args.export == "bib"
     check_results: list[UrlCheckResult] = []
 
     if should_check:
@@ -340,6 +473,21 @@ def main() -> None:
     if args.report_output:
         write_url_report(args.report_output, urls, check_results)
         print(f"Saved URL report to {args.report_output}")
+
+    if args.export == "bib":
+        valid_doi_urls = [result.url for result in check_results if result.is_valid and is_doi_url(result.url)]
+        if not valid_doi_urls:
+            print("No valid DOI URLs found to export.")
+        else:
+            ris_count, bib_count, failed_count, output_folder = export_reference_files(
+                pdf_path=args.pdf,
+                doi_urls=valid_doi_urls,
+                timeout_seconds=args.timeout,
+            )
+            print(
+                f"Exported {ris_count} RIS and {bib_count} BibTeX file(s) to {output_folder}"
+                + (f" ({failed_count} failed)" if failed_count else "")
+            )
 
 
 if __name__ == "__main__":

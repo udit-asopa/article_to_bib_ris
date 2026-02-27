@@ -72,7 +72,17 @@ Save a text report with 3 sections: Retrieved URLs, Valid URLs, Invalid URLs:
 python extract_pdf_urls.py path\to\your_file.pdf --report-output url_report.txt
 ```
 
+Export BibTeX for valid DOI URLs:
+
+```powershell
+python extract_pdf_urls.py path\to\your_file.pdf --export bib
+```
+
+This creates a folder named after the PDF file (for example `paper.pdf` -> `paper/`).
+For each valid DOI URL, it first tries to download a `.ris` file from Springer citation-needed; if not available, it falls back to `.bib`.
+
 Note: DOI links split across line breaks in PDFs (for example `.../0034` on one line and `4257...` on the next) are automatically reconstructed.
+The extractor also reads embedded PDF hyperlinks (clickable links in annotations), not only visible text.
 
 Use **File → Open EPUB** or `Ctrl+O` to load a book.
 
